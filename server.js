@@ -137,7 +137,7 @@ app.use(cors());
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-app.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
+app.get('/', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
 app.get('/api/room/get/all', (req, res) => {
 	res.send(JSON.stringify(getAllRooms()));
 });
