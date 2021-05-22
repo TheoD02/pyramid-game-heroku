@@ -136,16 +136,3 @@ io.on('connection', (socket) => {
 		}
 	});
 });
-
-app.get('/api/room/get/all', (req, res) => {
-	res.send(JSON.stringify(getAllRooms()));
-});
-
-app.get('/api/room/get/:roomCode', (req, res) => {
-	const room = getRoom(req.params.roomCode);
-	if (room !== undefined) {
-		res.send(JSON.stringify(room));
-	} else {
-		res.send(JSON.stringify({ error: `Pas de salle correspondante au code : [${req.params.roomCode}]` }));
-	}
-});
