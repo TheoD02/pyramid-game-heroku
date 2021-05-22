@@ -1,5 +1,5 @@
 'use strict';
-
+const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const cors = require('cors');
@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3005;
 const INDEX = '/index.html';
 const { addRoom, getRoom, getAllRooms, deleteRoom, addPlayerToRoom, getPlayerWithRoomCodeAndSocketID, removePlayerFromRoomWithSocketID, initiateGame, searchPlayerInLeavePlayer, playerReJoinGameAfterLeave, deletePlayerFromLeavePlayer, checkUserCanJoinOrReJoinRoom, flipCardInRoom } = require('./src/utils/RoomManager');
 
-const server = express();
-
+const app = express();
+const server = http.createServer(app);
 const io = socketIO(server);
 
 // Run when client connects
@@ -133,14 +133,16 @@ io.on('connection', (socket) => {
 		}
 	});
 });
-server.use(cors()).listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.use(cors());
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-server.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
-server.get('/api/room/get/all', (req, res) => {
+
+app.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
+app.get('/api/room/get/all', (req, res) => {
 	res.send(JSON.stringify(getAllRooms()));
 });
 
-server.get('/api/room/get/:roomCode', (req, res) => {
+app.get('/api/room/get/:roomCode', (req, res) => {
 	const room = getRoom(req.params.roomCode);
 	if (room !== undefined) {
 		res.send(JSON.stringify(room));
