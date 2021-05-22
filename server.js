@@ -14,6 +14,7 @@ const io = socketIO(server);
 
 // Run when client connects
 io.on('connection', (socket) => {
+	console.log('player connected !');
 	/**
 	 * Va vérifié si le joueur peu rejoindre un salon directement via le lien, car il c'est déjà inscrit mais peu avoir eu une déconnexion
 	 */
@@ -135,7 +136,6 @@ io.on('connection', (socket) => {
 });
 app.use(cors());
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
 app.get('/', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
 app.get('/api/room/get/all', (req, res) => {
