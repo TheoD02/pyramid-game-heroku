@@ -10,7 +10,6 @@ const { addRoom, getRoom, getAllRooms, deleteRoom, addPlayerToRoom, getPlayerWit
 
 const server = express()
 	.use(cors())
-	.use((req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }))
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
@@ -136,7 +135,7 @@ io.on('connection', (socket) => {
 		}
 	});
 });
-
+app.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
 app.get('/api/room/get/all', (req, res) => {
 	res.send(JSON.stringify(getAllRooms()));
 });
