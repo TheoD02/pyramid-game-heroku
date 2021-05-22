@@ -135,12 +135,12 @@ io.on('connection', (socket) => {
 		}
 	});
 });
-app.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
-app.get('/api/room/get/all', (req, res) => {
+server.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
+server.get('/api/room/get/all', (req, res) => {
 	res.send(JSON.stringify(getAllRooms()));
 });
 
-app.get('/api/room/get/:roomCode', (req, res) => {
+server.get('/api/room/get/:roomCode', (req, res) => {
 	const room = getRoom(req.params.roomCode);
 	if (room !== undefined) {
 		res.send(JSON.stringify(room));
