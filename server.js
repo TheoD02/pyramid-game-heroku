@@ -8,9 +8,7 @@ const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 const { addRoom, getRoom, getAllRooms, deleteRoom, addPlayerToRoom, getPlayerWithRoomCodeAndSocketID, removePlayerFromRoomWithSocketID, initiateGame, searchPlayerInLeavePlayer, playerReJoinGameAfterLeave, deletePlayerFromLeavePlayer, checkUserCanJoinOrReJoinRoom, flipCardInRoom } = require('./src/utils/RoomManager');
 
-const server = express()
-	.use(cors())
-	.listen(PORT, () => console.log(`Listening on ${PORT}`));
+const server = express();
 
 const io = socketIO(server);
 
@@ -135,6 +133,8 @@ io.on('connection', (socket) => {
 		}
 	});
 });
+server.use(cors()).listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 server.get(',', (req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }));
 server.get('/api/room/get/all', (req, res) => {
 	res.send(JSON.stringify(getAllRooms()));
