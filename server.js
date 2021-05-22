@@ -10,7 +10,7 @@ const { addRoom, getRoom, getAllRooms, deleteRoom, addPlayerToRoom, getPlayerWit
 
 const server = express()
 	.use(cors())
-	.use((req, res) => res.sendFile(INDEX, { root: __dirname + '/public/build/' }))
+	.use((req, res) => res.sendFile(INDEX, { root: __dirname + '/public/' }))
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
